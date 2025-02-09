@@ -1,4 +1,4 @@
-# Beyin Tümörü Tespiti - DenseNet ve CNN Projesi
+# Beyin Tümörü Tespiti - CNN Projesi
 ## Proje Adı
 
 ## Beyin Tümörü Tespiti
