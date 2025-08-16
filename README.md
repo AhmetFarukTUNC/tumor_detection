@@ -23,6 +23,11 @@ templates/
 
 ## Example Images
 
+![Glioma Example](https://github.com/AhmetFarukTUNC/tumor_detection/blob/main/3.png)
+
+
+
+
  
 ![Glioma Example](https://github.com/AhmetFarukTUNC/tumor_detection/blob/main/1.png)
 
@@ -31,6 +36,8 @@ templates/
 
  
 ![Glioma Example](https://github.com/AhmetFarukTUNC/tumor_detection/blob/main/2.png)
+
+
 
 
 
