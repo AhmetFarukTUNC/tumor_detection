@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brain Tumor Classifier</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    text-align: center;
+    animation: fadeIn 1s ease forwards;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #fff;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+}
+
+/* Modern file input */
+.file-input {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 20px;
+}
+.file-input input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+.file-input label {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.2);
+    border-radius: 12px;
+    line-height: 50px;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.file-input label:hover {
+    background: rgba(255,255,255,0.35);
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(45deg, #ff6a00, #ee0979);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.preview img {
+    max-width: 100%;
+    margin-top: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    transition: transform 0.3s;
+}
+.preview img:hover { transform: scale(1.05); }
+
+.results {
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    font-weight: 500;
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Brain Tumor Classifier</h1>
+    
+    <div class="file-input">
+        <input type="file" id="imageInput" accept="image/*">
+        <label for="imageInput">Choose an image</label>
+    </div>
+    
+    <button onclick="predict()">Predict</button>
+    
+    <div class="preview" id="preview"></div>
+    <div class="results" id="results"></div>
+</div>
+
+<script>
+const preview = document.getElementById('preview');
+const results = document.getElementById('results');
+const imageInput = document.getElementById('imageInput');
+
+imageInput.addEventListener('change', () => {
+    const file = imageInput.files[0];
+    if(file){
+        const reader = new FileReader();
+        reader.onload = e => {
+            preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            results.innerHTML = '';
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+async function predict() {
+    const file = imageInput.files[0];
+    if(!file){ alert("Please select an image!"); return; }
+
+    const formData = new FormData();
+    formData.append("image", file);
+    results.innerHTML = "Predicting...";
+
+    try {
+        const res = await fetch("/predict", { method: "POST", body: formData });
+        const data = await res.json();
+        if(data.ok){
+            results.innerHTML = `<h3>Prediction:</h3>${data.class} <br>Confidence: ${(data.confidence*100).toFixed(2)}%`;
+        } else {
+            results.innerHTML = `<span style="color:red">${data.error}</span>`;
+        }
+    } catch(err){
+        results.innerHTML = `<span style="color:red">Error: ${err}</span>`;
+    }
+}
+</script>
+</body>
+</html>

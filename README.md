@@ -1,60 +1,69 @@
-# Beyin Tümörü Tespiti - CNN Projesi
-## Proje Adı
+# Brain Tumor Classifier Web App
 
-## Beyin Tümörü Tespiti
-## Giriş
+This project is a **Flask-based web application** for classifying brain tumor images. Users can upload MRI or brain scan images and get AI predictions using a trained CNN model.
 
-## Bu proje, beyin tümörlerini sınıflandırmak için derin öğrenme teknikleri kullanarak hem CNN hem de DenseNet modellerini eğitti. Her iki model, 3 farklı türde beyin tümörünü tanımlamak için eğitim ve test süreçlerini başarıyla tamamlamıştır.
-## Özellikler
+## Features
 
-## CNN ve DenseNet tabanlı modeller
-## Fine-tuning işlemleri
-## Confusion Matrix ve ROC Eğrisi değerlendirmeleri
-## Eğitim ve test doğruluğu çizimleri
+- Modern, sleek, and responsive web interface  
+- Classifies brain tumor images into: Glioma, Meningioma, Notumor, Pituitary  
+- Quick prediction with a single image upload  
+- Glassmorphism and gradient-based premium UI  
+- Flask API backend integrated with Python AI model  
 
-## Kurulum
+## File Structure
 
-## Gerekli kütüphaneleri yükleyin:
+brain-tumor-classifier/
+│
+├─ app.py # Flask API and AI integration
+templates/
+│
+├─ index.html # Frontend web interface
+├─ cnn_pixel_model.h5 # Trained CNN model
+└─ README.md # Project documentation
 
-## pip install numpy matplotlib scikit-learn tensorflow keras  
+## Example Images
 
-## Proje dosyalarını clonlayın:
+ 
+![Glioma Example](images/example1.jpg)
 
-## git clone https://github.com/AhmetFarukTUNC/tumor_detection/ 
-## cd tumor_detection  
 
-## Kullanım
 
-## Modeli eğitin:
+## Installation & Run
 
-## project.ipynb  
+1. Install required packages:
 
-## Modelin değerlendirilmesi:
+```bash
+pip install flask flask-cors tensorflow numpy pillow opencv-python
 
-## project.ipynb 
 
-## Proje Detayları
 
-## Modeller: CNN ve DenseNet
-## Eğitim Verisi: Beyin tümörü görüntüleri
-## Fine-tuning: Modellerin eğitim süreçlerinde ince ayar yapılmıştır
-## Evaluation: Confusion Matrix, ROC Eğrisi, eğitim/test doğruluğu grafikleri
+2. Run the application:
 
-## DenseNet Çizimleri
+python app.py
 
-## DenseNet Modeli için Confusion Matrix
-## DenseNet Modeli için ROC Eğrisi
-## Eğitim ve test doğruluğu grafikleri
+3.Open your browser at http://127.0.0.1:8000 and upload brain tumor images to get predictions.
 
-## Sonuçlar
+Usage
 
-## Hem CNN hem de DenseNet modelleri başarıyla eğitildi.
-## Confusion Matrix ve ROC Eğrileri ile model değerlendirmeleri yapıldı.
-## Fine-tuning işlemi her iki modelin performansını artırdı.
+Click the “Choose an image” button and select an MRI or brain scan image
 
-## Lisans
+Click the Predict button
 
-## Bu proje için herhangi bir özel lisans yoktur. Herhangi bir kişi veya kurum, projeyi kendi amaçları doğrultusunda kullanabilir.
-## Katkıda Bulunma
+View the results: predicted class and confidence score
 
-## Bu projeye katkıda bulunmak için lütfen bir pull request gönderin veya GitHub repo üzerinden önerilerinizi paylaşın.
+Model Details
+
+Model: CNN (Convolutional Neural Network)
+
+Input size: 224x224 (RGB or Grayscale)
+
+Output: 4 classes (Glioma, Meningioma, Notumor, Pituitary)
+
+Preprocessing: Image resizing and Harris Corner Detection
+
+Contributing
+
+You can improve preprocessing or update the model
+
+UI enhancements and mobile responsiveness are welcome
+
